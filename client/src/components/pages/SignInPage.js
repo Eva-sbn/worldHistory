@@ -1,21 +1,9 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
-import { Avatar, Box, Button, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
+import { Avatar, Button, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
-import { handleSignIn } from '../../redux/features/users'
+import { doLogin } from '../../redux/features/users';
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,6 +32,16 @@ function SignInPage () {
   const [login, setLogin] = useState("")
   const [password,setPassword] = useState("")
 
+
+
+  const handleReadLogin = (e) => {
+    setLogin(e.target.value)
+  }
+  const handleReadPassword = (e) => {
+    setPassword(e.target.value)
+  }
+
+
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -55,8 +53,7 @@ function SignInPage () {
           <Typography component="h1" variant="h5">
             Войти
           </Typography>
-          <form onSubmit={(e) => e.preventDefault()}
-                className={classes.form}>
+          <form onSubmit={(e) => e.preventDefault()}>
             <Grid container spacing={2}>
               <Grid item xs={12}>
                 <TextField
@@ -67,7 +64,7 @@ function SignInPage () {
                   label="Email Address"
                   name="email"
                   autoComplete="email"
-                  onChange={(e) => setLogin(e.target.value)}
+                  onChange={handleReadLogin}
                 />
               </Grid>
               <Grid item xs={12}>
@@ -80,7 +77,7 @@ function SignInPage () {
                   type="password"
                   id="password"
                   autoComplete="current-password"
-                  onChange={(e) => setPassword(e.target.value)}
+                  onChange={handleReadPassword}
                 />
               </Grid>
             </Grid>
@@ -89,16 +86,12 @@ function SignInPage () {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={(e) => dispatch(handleSignIn(login,password))}
-
+              onClick={() => dispatch(doLogin(login, password))}
             >
               Войти
             </Button>
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
       </Container>
     </div>
   )

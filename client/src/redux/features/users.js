@@ -1,34 +1,24 @@
 const initialState = {
-  userData: {},
-  signIn: false,
+  signingUp: false,
+  signingIn: false,
   error: null,
   token: localStorage.getItem("token")
 }
 
 export default function userReducer (state = initialState, action) {
   switch (action.type) {
-    case "user/signIn/fulfilled":
+    case "user/create/pending":
       return {
         ...state,
-        error: action.error
+        signingUp: true,
+        signingIn: false,
+        token: null
       }
-    case "users/signIn/pending":
+    case "user/login/pending":
       return {
         ...state,
-        signIn: true,
+        signingIn: true,
         token: action.payload
-      }
-
-
-    case "user/singUp/fulfilled":
-      return {
-        ...state,
-        error: action.payload
-      }
-    case "user/singUp/pending":
-      return {
-        ...state,
-        userData: action.payload.json
       }
     default:
       return state;
@@ -37,42 +27,35 @@ export default function userReducer (state = initialState, action) {
 
 //thunk
 
-export const handleSignUp = (login, password, firstName, lastName) => {
+export const doLogin = (login, password) => {
   return async dispatch => {
-    const res = await fetch("http://localhost:4000/users", {
+    const res = await fetch("http://localhost:4000/login", {
       method: "POST",
-      body: JSON.stringify({ login, password, firstName, lastName }),
+      body: JSON.stringify({login, password}),
       headers: {
         "Content-type": "application/json"
       }
     })
     const json = await res.json()
 
-    if(!json.error) {
-      dispatch({type: "user/singUp/pending", payload: json})
-    }else {
-      dispatch({type: "user/singUp/fulfilled", error: json.error})
-    }
+    localStorage.setItem("token", json.token)
+
+    dispatch({type: "user/login/pending", payload: json.token })
   }
 }
 
-export const handleSignIn = (login, password) => {
+
+export const auth = (firstName, lastName, login, password) => {
   return async dispatch => {
-    const res = await fetch("http://localhost:4000/login", {
+    const res = await fetch("http://localhost:4000/users", {
       method: "POST",
-      body: JSON.stringify({login, password}),
+      body: JSON.stringify({firstName, lastName, login, password}),
       headers: {
-        "Content-type": "application/json",
+        "Content-type": "application/json"
       }
     })
     const json = await res.json()
 
-    if (!json.error) {
-      dispatch({type: "users/signIn/pending", payload: { json }})
-      localStorage.setItem("token", json.token)
-    } else {
-      dispatch({type: "user/signIn/fulfilled", error: json.error})
-    }
+    dispatch({type: "user/create/pending", payload: { json }})
   }
 }
-

@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
-import { handleSignUp } from '../../redux/features/users'
 import {
   Avatar,
   Box,
@@ -13,6 +12,7 @@ import {
   TextField,
   Typography
 } from '@material-ui/core'
+import { auth } from '../../redux/features/users';
 
 
 function Copyright() {
@@ -57,6 +57,8 @@ function SignUpPage (props) {
   const [lastName, setLastName] = useState("")
 
 
+
+
   return (
     <div>
       <Container component="main" maxWidth="xs">
@@ -80,7 +82,7 @@ function SignUpPage (props) {
                   id="firstName"
                   label="First Name"
                   autoFocus
-                  onChange={(e) => setFirstName((e.target.value))}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </Grid>
               <Grid item xs={12} sm={6}>
@@ -132,7 +134,7 @@ function SignUpPage (props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => dispatch(handleSignUp(login, password, firstName, lastName))}
+              onClick={() => dispatch(auth(firstName, lastName, login, password))}
             >
               Зарегистрироваться
             </Button>

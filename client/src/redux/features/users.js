@@ -2,11 +2,21 @@ const initialState = {
   signingUp: false,
   signingIn: false,
   error: null,
+  data: JSON.parse(localStorage.getItem("data")),
   token: localStorage.getItem("token")
 }
 
 export default function userReducer (state = initialState, action) {
   switch (action.type) {
+    case "clear/user/rejected":
+      return {
+        ...state,
+        signingUp: false,
+        signingIn: false,
+        error: null,
+        data: null,
+        token: null
+      }
     case "user/create/pending":
       return {
         ...state,
@@ -18,7 +28,9 @@ export default function userReducer (state = initialState, action) {
       return {
         ...state,
         signingIn: true,
-        token: action.payload
+        token: action.payload.json.token,
+        data: action.payload.json.candidate
+
       }
     default:
       return state;
@@ -39,8 +51,9 @@ export const doLogin = (login, password) => {
     const json = await res.json()
 
     localStorage.setItem("token", json.token)
+    localStorage.setItem("data", JSON.stringify(json.candidate))
 
-    dispatch({type: "user/login/pending", payload: json.token })
+    dispatch({type: "user/login/pending", payload: { json } })
   }
 }
 
@@ -59,3 +72,4 @@ export const auth = (firstName, lastName, login, password) => {
     dispatch({type: "user/create/pending", payload: { json }})
   }
 }
+

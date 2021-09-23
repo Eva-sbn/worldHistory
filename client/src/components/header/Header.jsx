@@ -1,9 +1,18 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
+import { useDispatch, useSelector } from 'react-redux'
 
 
 
 function Header () {
+  const data = useSelector(state => state.users.data)
+  const dispatch = useDispatch()
+
+
+  const clearDataUser = () => {
+    localStorage.clear()
+    dispatch(({type: "clear/user/rejected"}))
+  }
 
   return (
     <div>
@@ -26,11 +35,23 @@ function Header () {
 
 
               <li className="nav-item">
-                <Link to={"/authorization"} className="nav-link">Зарегистрироваться</Link>
+                <button onClick={clearDataUser}>Выйти</button>
               </li>
 
+
+
               <li className="nav-item">
-                <Link to={"/login"} className="nav-link">Войти</Link>
+                {data ? <p>{`${data.firstName} ${data.lastName}`}</p> :
+                  <>
+                    <li className="nav-item">
+                      <Link to={"/authorization"} className="nav-link">Зарегистрироваться</Link>
+                    </li>
+
+                    <li className="nav-item">
+                      <Link to={"/login"} className="nav-link">Войти</Link>
+                    </li>
+                  </>
+                }
               </li>
 
 

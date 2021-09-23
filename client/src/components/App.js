@@ -8,9 +8,12 @@ function App() {
   return (
     <div className="App">
       <BrowserRouter>
-        <Header/>
         <Switch>
-          <Route exact path={"/authorization"}>
+          <Route exact path={"/"}>
+            <Header/>
+            <TimeLine/>
+          </Route>
+          <Route path={"/authorization"}>
             <SignUpPage/>
           </Route>
           <Route path={"/login"}>

@@ -2,10 +2,9 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux'
 import {
   Avatar,
-  Box,
   Button,
-  Checkbox, Container, CssBaseline,
-  FormControlLabel,
+  Container,
+  CssBaseline,
   Grid,
   Link,
   makeStyles,
@@ -15,18 +14,6 @@ import {
 import { auth } from '../../redux/features/users';
 
 
-function Copyright() {
-  return (
-    <Typography variant="body2" color="textSecondary" align="center">
-      {'Copyright © '}
-      <Link color="inherit" href="https://material-ui.com/">
-        Your Website
-      </Link>{' '}
-      {new Date().getFullYear()}
-      {'.'}
-    </Typography>
-  );
-}
 
 const useStyles = makeStyles((theme) => ({
   paper: {
@@ -122,12 +109,6 @@ function SignUpPage (props) {
                   onChange={(e) => setPassword(e.target.value)}
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={<Checkbox value="allowExtraEmails" color="primary" />}
-                  label="Я хочу получать вдохновение, маркетинговые акции и обновления по электронной почте."
-                />
-              </Grid>
             </Grid>
             <Button
               fullWidth
@@ -147,9 +128,6 @@ function SignUpPage (props) {
             </Grid>
           </form>
         </div>
-        <Box mt={5}>
-          <Copyright />
-        </Box>
       </Container>
     </div>
   )

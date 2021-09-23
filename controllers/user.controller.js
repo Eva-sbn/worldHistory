@@ -87,7 +87,7 @@ module.exports.UserController = {
         expiresIn: "24h",
       });
 
-      res.status(200).json({ token });
+      res.status(200).json({ token, candidate });
     } catch (e) {
       res.status(400).json({ error: e });
     }

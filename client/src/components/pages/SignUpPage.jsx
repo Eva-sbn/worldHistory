@@ -12,6 +12,7 @@ import {
   Typography
 } from '@material-ui/core'
 import { auth } from '../../redux/features/users';
+import { useHistory } from "react-router-dom"
 
 
 
@@ -42,6 +43,13 @@ function SignUpPage (props) {
   const [password, setPassword] = useState("")
   const [firstName, setFirstName] = useState("")
   const [lastName, setLastName] = useState("")
+  const history = useHistory()
+
+
+  const showHomePage = () => {
+    dispatch(auth(firstName, lastName, login, password))
+    history.push("/")
+  }
 
 
 
@@ -115,7 +123,7 @@ function SignUpPage (props) {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => dispatch(auth(firstName, lastName, login, password))}
+              onClick={() => showHomePage()}
             >
               Зарегистрироваться
             </Button>

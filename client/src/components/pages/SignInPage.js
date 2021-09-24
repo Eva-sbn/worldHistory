@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { Avatar, Button, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
 import { useDispatch } from 'react-redux'
 import { doLogin } from '../../redux/features/users';
+import { useHistory } from "react-router-dom"
 
 
 
@@ -31,6 +32,7 @@ function SignInPage () {
   const classes = useStyles();
   const [login, setLogin] = useState("")
   const [password,setPassword] = useState("")
+  const history = useHistory()
 
 
 
@@ -39,6 +41,11 @@ function SignInPage () {
   }
   const handleReadPassword = (e) => {
     setPassword(e.target.value)
+  }
+
+  const showHomePage = () => {
+    dispatch(doLogin(login, password))
+    history.push("/")
   }
 
 
@@ -86,7 +93,7 @@ function SignInPage () {
               variant="contained"
               color="primary"
               className={classes.submit}
-              onClick={() => dispatch(doLogin(login, password))}
+              onClick={() => showHomePage()}
             >
               Войти
             </Button>

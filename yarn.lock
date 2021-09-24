@@ -2537,6 +2537,14 @@
     "is-core-module" "^2.2.0"
     "path-parse" "^1.0.6"
 
+"resolve@^2.0.0-next.3":
+  "integrity" "sha512-W8LucSynKUIDu9ylraa7ueVZ7hc0uAgJBxVsQSKOXOyle8a93qXhcz+XAXZ8bIq2d6i4Ehddn6Evt+0/UwKk6Q=="
+  "resolved" "https://registry.npmjs.org/resolve/-/resolve-2.0.0-next.3.tgz"
+  "version" "2.0.0-next.3"
+  dependencies:
+    "is-core-module" "^2.2.0"
+    "path-parse" "^1.0.6"
+
 "responselike@^1.0.2":
   "integrity" "sha1-kYcg7ztjHFZCvgaPFa3lpG9Loec="
   "resolved" "https://registry.npmjs.org/responselike/-/responselike-1.0.2.tgz"

@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 
 
-
 function Header () {
   const data = useSelector(state => state.users.data)
   const dispatch = useDispatch()
@@ -26,17 +25,7 @@ function Header () {
           </button>
           <div className="collapse navbar-collapse" id="navbarSupportedContent">
             <ul className="navbar-nav me-auto mb-2 mb-lg-0">
-              <li className="nav-item">
-                <a className="nav-link active" aria-current="page" href="#">Home</a>
-              </li>
-              <li className="nav-item">
-                <a className="nav-link" href="#">Link</a>
-              </li>
 
-
-              <li className="nav-item">
-                <button onClick={clearDataUser}>Выйти</button>
-              </li>
 
 
 
@@ -52,6 +41,10 @@ function Header () {
                     </li>
                   </>
                 }
+              </li>
+
+              <li className="nav-item">
+                <button onClick={clearDataUser}>Выйти</button>
               </li>
 
 

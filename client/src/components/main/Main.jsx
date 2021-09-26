@@ -27,7 +27,17 @@ function Main() {
       <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
       }
 
-    {/*  вывод всех таймлайнов*/}
+
+
+      {loadTimeline.map((item) => {
+        return (
+          <div key={item._id}>
+          <h2 style={{marginTop: "20px"}}>{item.title}</h2>
+            <img style={{width: "500px", display: "block", marginLeft: "100px"}} src={item.img} alt=""/>
+            <p>{item.description}</p>
+          </div>
+        )
+      })}
     </div>
   );
 }

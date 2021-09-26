@@ -1,10 +1,10 @@
-const timeLine = require("../models/TimeLine.model")
+const TimeLine = require("../models/TimeLine.model")
 
 module.exports.timeLineController = {
   createTimeLine: async (req, res) => {
     try {
       const { title, img, description, timeId } = req.body
-      await timeLine.create({
+      await TimeLine.create({
         title,
         img,
         description,
@@ -17,7 +17,7 @@ module.exports.timeLineController = {
   },
   deleteTimeLine: async (req,res) => {
     try {
-      await timeLine.findByIdAndDelete(req.params.id)
+      await TimeLine.findByIdAndDelete(req.params.id)
       res.json({ success:'таймлайн успешно удален' })
     } catch (err){
       res.status(400).json({error: err})
@@ -27,7 +27,7 @@ module.exports.timeLineController = {
     try {
       const { id } = req.params
       const { title, img, description, timeId } = req.body
-      await timeLine.findByIdAndUpdate(id,{
+      await TimeLine.findByIdAndUpdate(id,{
         title,
         img,
         description,
@@ -40,7 +40,7 @@ module.exports.timeLineController = {
   },
   getTimeLine: async (req,res) => {
     try {
-      const timeLine = await timeLine.find({})
+      const timeLine = await TimeLine.find({})
       res.status(200).json(timeLine)
     }catch (err){
       res.status(400).json({error: err})
@@ -48,7 +48,7 @@ module.exports.timeLineController = {
   },
   getTimeLineById: async (req,res) => {
     try {
-      const timeLineById = await timeLine.findById(req.params.id)
+      const timeLineById = await TimeLine.findById(req.params.id)
       res.json(timeLineById)
     }catch (err){
       res.status(400).json({error: err})

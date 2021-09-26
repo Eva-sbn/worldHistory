@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Avatar, Button, Container, CssBaseline, Grid, makeStyles, TextField, Typography } from '@material-ui/core'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import { doLogin } from '../../redux/features/users';
 import { useHistory } from "react-router-dom"
 
@@ -28,6 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignInPage () {
+  const error = useSelector(state => state.users.error)
   const dispatch = useDispatch()
   const classes = useStyles();
   const [login, setLogin] = useState("")
@@ -45,7 +46,9 @@ function SignInPage () {
 
   const showHomePage = () => {
     dispatch(doLogin(login, password))
-    history.push("/")
+    if(error) {
+      history.push("/")
+    }
   }
 
 
@@ -88,6 +91,7 @@ function SignInPage () {
                 />
               </Grid>
             </Grid>
+            <p style={{fontSize: "20px", color: "red", marginTop: "15px"}}>{error}</p>
             <Button
               fullWidth
               variant="contained"

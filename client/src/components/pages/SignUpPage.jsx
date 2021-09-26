@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { useDispatch } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import {
   Avatar,
   Button,
@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
 
 function SignUpPage (props) {
   const classes = useStyles();
+  const error = useSelector(state => state.users.error)
   const dispatch = useDispatch()
   const [login, setLogin] = useState("")
   const [password, setPassword] = useState("")
@@ -48,7 +49,9 @@ function SignUpPage (props) {
 
   const showHomePage = () => {
     dispatch(auth(firstName, lastName, login, password))
-    history.push("/")
+    if(error) {
+      history.push("/")
+    }
   }
 
 
@@ -118,6 +121,11 @@ function SignUpPage (props) {
                 />
               </Grid>
             </Grid>
+            {!error ? "" : error.map((item) => {
+              return (
+                <p style={{fontSize: "18px", color: "red"}}>{item.msg}</p>
+              )
+            })}
             <Button
               fullWidth
               variant="contained"
@@ -129,7 +137,7 @@ function SignUpPage (props) {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Уже есть аккаунт? Войти
                 </Link>
               </Grid>

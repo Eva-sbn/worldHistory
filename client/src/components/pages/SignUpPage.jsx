@@ -36,7 +36,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-function SignUpPage (props) {
+function SignUpPage () {
   const classes = useStyles();
   const error = useSelector(state => state.users.error)
   const dispatch = useDispatch()
@@ -49,8 +49,9 @@ function SignUpPage (props) {
 
   const showHomePage = () => {
     dispatch(auth(firstName, lastName, login, password))
-    if(error) {
-      history.push("/")
+
+    if(!!error) {
+      return history.push("/")
     }
   }
 

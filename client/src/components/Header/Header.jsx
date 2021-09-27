@@ -10,10 +10,17 @@ import Menu from '@mui/material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import { makeStyles} from "@material-ui/core";
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
     appbar:{
         backgroundColor:"grey"
+    },
+    link: {
+       textDecoration: "none",
+       color: "#000",
+
     }
 }))
 
@@ -57,144 +64,117 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+function Header () {
+    const data = useSelector(state => state.users.data)
+    const dispatch = useDispatch()
+
+
+
     const classes = useStyles()
     const [anchorEl, setAnchorEl] = React.useState(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
 
     const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event) => {
         setAnchorEl(event.currentTarget);
     };
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
 
     const handleMenuClose = () => {
         setAnchorEl(null);
-        handleMobileMenuClose();
     };
+
+    const clearDataUser = () => {
+        localStorage.clear()
+        dispatch(({type: "clear/user/rejected"}))
+    }
 
     const menuId = 'primary-search-account-menu';
     const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Регистрация</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Мои данные</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Войти</MenuItem>
-            <MenuItem onClick={handleMenuClose}>Выйти</MenuItem>
-        </Menu>
-    );
-
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-
-                </IconButton>
-                <p>Profile</p>
+      <Menu
+        anchorEl={anchorEl}
+        anchorOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        id={menuId}
+        keepMounted
+        transformOrigin={{
+            vertical: 'top',
+            horizontal: 'right',
+        }}
+        open={isMenuOpen}
+        onClose={handleMenuClose}
+      >
+          {data ?
+            <MenuItem className={classes.link} onClick={clearDataUser}>
+                Выйти
+            </MenuItem> :
+            <>
+            <MenuItem>
+                <Link className={classes.link} to={"/authorization"}>Регистрация</Link>
             </MenuItem>
-        </Menu>
+
+              <MenuItem>
+              <Link className={classes.link} to={"/login"}>Войти</Link>
+              </MenuItem>
+            </>
+          }
+          {/*<MenuItem onClick={handleMenuClose}>Мои данные</MenuItem>*/}
+
+      </Menu>
     );
 
     return (
-        <Box sx={{ flexGrow: 1 }} >
-            <Box
-             className={classes.appbar}
-            >
-                <Toolbar >
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        История Грозного
-                    </Typography>
-                    <Search>
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
-                    >
-                        Имя Фамилия
-                    </Typography>
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
-                    </Box>
-                    {/*<Box sx={{ display: { xs: 'flex', md: 'none' } }}>*/}
-                    {/*    <IconButton*/}
-                    {/*        size="large"*/}
-                    {/*        aria-label="show more"*/}
-                    {/*        aria-controls={mobileMenuId}*/}
-                    {/*        aria-haspopup="true"*/}
-                    {/*        onClick={handleMobileMenuOpen}*/}
-                    {/*        color="inherit"*/}
-                    {/*    >*/}
-                    {/*        <MoreIcon />*/}
-                    {/*    </IconButton>*/}
-                    {/*</Box>*/}
-                </Toolbar>
-            </Box>
-            {/*{renderMobileMenu}*/}
-            {renderMenu}
-        </Box>
+      <Box sx={{ flexGrow: 1 }} >
+          <Box
+            className={classes.appbar}
+          >
+              <Toolbar >
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                  >
+                      История Грозного
+                  </Typography>
+                  <Search>
+                      <SearchIconWrapper>
+                          <SearchIcon />
+                      </SearchIconWrapper>
+                      <StyledInputBase
+                        placeholder="Search…"
+                        inputProps={{ 'aria-label': 'search' }}
+                      />
+                  </Search>
+                  <Box sx={{ flexGrow: 1 }} />
+                  <Typography
+                    variant="h6"
+                    noWrap
+                    component="div"
+                    sx={{ display: { xs: 'none', sm: 'block' } }}
+                  >
+                      {data ? `${data.firstName} ${data.lastName}` : "Войдите в систему"}
+                  </Typography>
+                  <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
+                      <IconButton
+                        size="large"
+                        edge="end"
+                        aria-label="account of current user"
+                        aria-controls={menuId}
+                        aria-haspopup="true"
+                        onClick={handleProfileMenuOpen}
+                        color="inherit"
+                      >
+                          <AccountCircle />
+                      </IconButton>
+                  </Box>
+              </Toolbar>
+          </Box>
+          {renderMenu}
+      </Box>
     );
 }
+
+export default Header

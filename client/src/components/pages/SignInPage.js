@@ -28,7 +28,7 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 function SignInPage () {
-  const error = useSelector(state => state.users.error)
+  const { error, token } = useSelector(state => state.users)
   const dispatch = useDispatch()
   const classes = useStyles();
   const [login, setLogin] = useState("")
@@ -46,9 +46,10 @@ function SignInPage () {
 
   const showHomePage = () => {
     dispatch(doLogin(login, password))
-    if(error) {
-      history.push("/")
-    }
+  }
+
+  if(token) {
+    history.push("/")
   }
 
 

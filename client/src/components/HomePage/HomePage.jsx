@@ -17,13 +17,13 @@ import {Grid, makeStyles} from "@material-ui/core";
 const useStyles = makeStyles((theme) => ({
     img: {
         width: '100%',
-        height: 300,
+        height: "500px",
         backgroundImage: `url(${"https://doseng.org/uploads/posts/2015-01/1421209745_0_e8bca_4522740a_orig.jpg"})`,
         backgroundRepeat: "no-repeat",
         backgroundSize: "100%"
     },
     main: {
-        background:"darkgrey"
+        background:"transparent"
     }
 }))
 
@@ -88,7 +88,7 @@ export default function HomePage() {
                     <TimelineDot color="primary" variant="outlined">
                         <HotelIcon />
                     </TimelineDot>
-                    <TimelineConnector sx={{ bgcolor: 'secondary.main' }} />
+                    <TimelineConnector sx={{ backgroundColor: 'secondary.main' }} />
                 </TimelineSeparator>
                 <TimelineContent sx={{ py: '12px', px: 2 }}>
                     <Typography variant="h6" component="span">
@@ -105,6 +105,7 @@ export default function HomePage() {
                     </TimelineDot>
                     <TimelineConnector />
                 </TimelineSeparator>
+
                 <TimelineContent sx={{ py: '12px', px: 2 }}>
                     <Typography variant="h6" component="span">
                         Repeat
@@ -180,6 +181,7 @@ export default function HomePage() {
                 </TimelineDot>
                 <TimelineConnector />
             </TimelineSeparator>
+
             <TimelineContent sx={{ py: '12px', px: 2 }}>
                 <Typography variant="h6" component="span">
                     Repeat

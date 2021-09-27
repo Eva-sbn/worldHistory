@@ -1,10 +1,13 @@
+import Header from "./Header/Header";
+import HomePage from "./HomePage/HomePage";
 
 
 function App() {
   return (
-    <div className="App">
-
-    </div>
+      <>
+    <Header />
+      <HomePage />
+      </>
   );
 }
 

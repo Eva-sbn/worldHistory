@@ -1,10 +1,28 @@
 const initialState = {
   addTimeLine: false,
-  loadTimeline: []
+  loadTimeline: [],
+  images: null,
+  error: null
 }
 
 export default function timeLineReducer (state = initialState, action) {
   switch (action.type) {
+
+
+    case "timeline/upload/rejected":
+      return {
+        ...state,
+        error: action.error
+      }
+
+
+    case "timeline/upload/pending":
+      return {
+        ...state,
+        images: action.payload
+      }
+
+
     case "load/timeline/pending":
       return {
         ...state,
@@ -24,15 +42,39 @@ export default function timeLineReducer (state = initialState, action) {
 //thunk
 
 
+export const addImage = (e) => {
+  return async (dispatch) => {
+    const { files } = e.target
+    const data = new FormData()
+    data.append("image", files[0])
+    const response = await fetch("http://localhost:4000/upload", {
+      method: "POST",
+      body: data,
+      headers: {
+        "Access-Control-Allow-Origin": "http://localhost:3000"
+      }
+    })
+    const json = await response.json()
+
+    if(!json.error) {
+      dispatch({type: "timeline/upload/pending", payload: json.image})
+    } else {
+      dispatch({type: "timeline/upload/rejected", error: json.error})
+    }
+  }
+}
+
+
 
 export const reqServer = (name, text) => {
-  return async dispatch => {
+  return async (dispatch, getState) => {
+    const state = getState()
     const res = await fetch("http://localhost:4000/timeLine", {
       method: "POST",
       body: JSON.stringify({
         title: name,
         description: text,
-        img: "https://app2top.ru/wp-content/uploads/2021/01/ubisoft-starwars.jpg"
+        img: state.timeline.images
       }),
       headers: {
         "Content-type": "application/json",

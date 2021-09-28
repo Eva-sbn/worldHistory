@@ -10,7 +10,7 @@ function Main() {
   const data = useSelector(state => state.users.data)
 
 
-  const loadTimeline = useSelector(state => state.timeline.loadTimeline)
+  const { loadTimeline } = useSelector(state => state.timeline)
   const dispatch = useDispatch()
 
 
@@ -27,7 +27,16 @@ function Main() {
       <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
       }
 
-    {/*  вывод всех таймлайнов*/}
+
+      {loadTimeline.map((item) => {
+        return (
+          <>
+            <h2>{item.title}</h2>
+            <img style={{width: "400px", height: "400px"}} src={`http://localhost:4000/${item.img}`} alt=""/>
+            <p>{item.description}</p>
+          </>
+        )
+      })}
     </div>
   );
 }

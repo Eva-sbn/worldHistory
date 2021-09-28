@@ -5,16 +5,17 @@ const cors = require("cors");
 const router = require("./routes/index");
 
 const app = express();
-const PORT = process.env.PORT || 4003;
+const PORT = process.env.PORT || 4000;
 
 app.use(express.json());
-app.use(router);
 app.use(
   cors({
     credentials: true,
     origin: "http://localhost:3000",
   })
 );
+app.use(router);
+
 
 async function start() {
   await mongo.connect(process.env.MONGO_PORT);

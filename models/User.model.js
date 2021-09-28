@@ -4,13 +4,7 @@ const userSchema = new mongo.Schema({
   firstName: String,
   lastName: String,
   login: String,
-  password: String,
-  listChanged: [
-    {
-      type: mongo.Schema.Types.ObjectId,
-      ref: "History",
-    },
-  ],
+  password: String
 });
 
 const User = mongo.model("User", userSchema);

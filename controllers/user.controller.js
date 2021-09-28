@@ -16,7 +16,7 @@ module.exports.UserController = {
 
   async addToUser(req, res) {
     try {
-      const { firstName, lastName, login, password, listChanged } = req.body;
+      const { firstName, lastName, login, password } = req.body;
 
       const errors = validationResult(req);
 
@@ -38,7 +38,7 @@ module.exports.UserController = {
         lastName,
         login,
         password: hashPassword,
-        listChanged,
+
       });
       res.status(200).json(user);
     } catch (e) {
@@ -49,14 +49,13 @@ module.exports.UserController = {
   async editUser(req, res) {
     try {
       const { id } = req.params;
-      const { firstName, lastName, login, password, listChanged } = req.body;
+      const { firstName, lastName, login, password } = req.body;
 
       await User.findByIdAndUpdate(id, {
         firstName,
         lastName,
         login,
         password,
-        listChanged,
       });
       res.status(200).json({ success: "Данные изменены..." });
     } catch (e) {
@@ -88,7 +87,7 @@ module.exports.UserController = {
         expiresIn: "24h",
       });
 
-      res.status(200).json({ token });
+      res.status(200).json({ token, candidate });
     } catch (e) {
       res.status(400).json({ error: e });
     }

@@ -17,11 +17,34 @@ export default function userReducer (state = initialState, action) {
         data: null,
         token: null
       }
+
+
+    case "user/create/rejected":
+      return {
+        ...state,
+        signingUp: false,
+        signingIn: false,
+        error: action.error,
+        data: null,
+        token: null
+      }
     case "user/create/pending":
       return {
         ...state,
         signingUp: true,
         signingIn: false,
+        token: null
+      }
+
+
+
+    case "user/login/rejected":
+      return {
+        ...state,
+        signingUp: false,
+        signingIn: false,
+        error: action.error,
+        data: null,
         token: null
       }
     case "user/login/pending":
@@ -50,10 +73,14 @@ export const doLogin = (login, password) => {
     })
     const json = await res.json()
 
-    localStorage.setItem("token", json.token)
-    localStorage.setItem("data", JSON.stringify(json.candidate))
+    if(!json.error) {
+      localStorage.setItem("token", json.token)
+      localStorage.setItem("data", JSON.stringify(json.candidate))
 
-    dispatch({type: "user/login/pending", payload: { json } })
+      dispatch({type: "user/login/pending", payload: { json } })
+    } else {
+      dispatch({type: "user/login/rejected", error: json.error})
+    }
   }
 }
 
@@ -69,7 +96,11 @@ export const auth = (firstName, lastName, login, password) => {
     })
     const json = await res.json()
 
-    dispatch({type: "user/create/pending", payload: { json }})
+    if(!json.error) {
+      dispatch({type: "user/create/pending", payload: { json }})
+    } else {
+      dispatch({type: "user/create/rejected", error: json.error.errors})
+    }
   }
 }
 

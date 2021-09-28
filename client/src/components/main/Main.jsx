@@ -25,9 +25,7 @@ function Main() {
 
       {data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :
       <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
-      }
-
-
+    
       {loadTimeline.map((item) => {
         return (
           <>

@@ -1,9 +1,10 @@
-import Header from './header/Header'
 import { BrowserRouter, Switch, Route } from 'react-router-dom'
 import SignUpPage from './pages/SignUpPage'
 import SignInPage from './pages/SignInPage'
 import CreateTimeLine from './pages/CreateTimeLine';
 import Main from './main/Main';
+import HomePage from './HomePage/HomePage';
+import Header from './Header/Header';
 
 function App() {
   return (
@@ -12,6 +13,7 @@ function App() {
         <Switch>
           <Route exact path={"/"}>
             <Header/>
+            <HomePage/>
             <Main/>
           </Route>
           <Route path={"/authorization"}>

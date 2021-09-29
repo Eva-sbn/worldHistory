@@ -12,7 +12,7 @@ module.exports.timeLineController = {
       })
       res.status(200).json({success: 'таймлайн успешно добавлен'})
     }catch (err){
-      res.status(400).json({error: err})
+      res.status(400).json({error: "Ошибка при создании таймлайна."})
     }
   },
   deleteTimeLine: async (req,res) => {
@@ -20,7 +20,7 @@ module.exports.timeLineController = {
       await TimeLine.findByIdAndDelete(req.params.id)
       res.json({ success:'таймлайн успешно удален' })
     } catch (err){
-      res.status(400).json({error: err})
+      res.status(400).json({error: 'ошибка при удалении таймлайна'})
     }
   },
   patchTimeLine: async (req,res) => {
@@ -43,7 +43,7 @@ module.exports.timeLineController = {
       const timeLine = await TimeLine.find({})
       res.status(200).json(timeLine)
     }catch (err){
-      res.status(400).json({error: err})
+      res.status(400).json({error: "Ошибка при загрузки таймлайна."})
     }
   },
   getTimeLineById: async (req,res) => {

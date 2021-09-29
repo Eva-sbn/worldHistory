@@ -3,7 +3,7 @@ import "../../style/style.css"
 import { useDispatch } from 'react-redux';
 import { useHistory } from "react-router-dom"
 import { addImage, reqServer } from '../../redux/features/timeline';
-import { Button, Input } from '@material-ui/core';
+import { Input } from '@material-ui/core';
 
 function CreateTimeLine() {
   const [timeLine, setTimeLine] = useState()

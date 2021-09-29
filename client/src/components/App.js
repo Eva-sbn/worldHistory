@@ -3,7 +3,6 @@ import SignUpPage from './pages/SignUpPage'
 import SignInPage from './pages/SignInPage'
 import CreateTimeLine from './pages/CreateTimeLine';
 import Main from './main/Main';
-import HomePage from './HomePage/HomePage';
 import Header from './Header/Header';
 
 function App() {
@@ -13,7 +12,7 @@ function App() {
         <Switch>
           <Route exact path={"/"}>
             <Header/>
-            <HomePage/>
+            <Main/>
           </Route>
           <Route path={"/authorization"}>
             <SignUpPage/>

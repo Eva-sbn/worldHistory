@@ -10,7 +10,7 @@ function Main() {
   // const data = useSelector(state => state.users.data)
 
 
-  const loadTimeline = useSelector(state => state.timeline.loadTimeline)
+  const { loadTimeline } = useSelector(state => state.timeline)
   const dispatch = useDispatch()
 
 
@@ -23,19 +23,22 @@ function Main() {
       <h1>Страница где будет выводиться таймлайн</h1>
       <hr/>
 
-      {/*{data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :*/}
-      {/*<p>Войдите в систему чтобы добавлять ТаймЛайн</p>*/}
-      {/*}*/}
+      {{data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :*/}
+      {<p>Войдите в систему чтобы добавлять ТаймЛайн</p>}
+     
 
 
 
+      {data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :
+      <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
+    
       {loadTimeline.map((item) => {
         return (
-          <div key={item._id}>
-          <h2 style={{marginTop: "20px"}}>{item.title}</h2>
-            <img style={{width: "500px", display: "block", marginLeft: "100px"}} src={item.img} alt=""/>
+          <>
+            <h2>{item.title}</h2>
+            <img style={{width: "400px", height: "400px"}} src={`http://localhost:4000/${item.img}`} alt=""/>
             <p>{item.description}</p>
-          </div>
+          </>
         )
       })}
     </div>

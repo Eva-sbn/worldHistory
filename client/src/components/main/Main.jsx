@@ -7,7 +7,7 @@ import { loadingTimeline } from '../../redux/features/timeline';
 
 
 function Main() {
-  const data = useSelector(state => state.users.data)
+  // const data = useSelector(state => state.users.data)
 
 
   const loadTimeline = useSelector(state => state.timeline.loadTimeline)
@@ -23,9 +23,9 @@ function Main() {
       <h1>Страница где будет выводиться таймлайн</h1>
       <hr/>
 
-      {data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :
-      <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
-      }
+      {/*{data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :*/}
+      {/*<p>Войдите в систему чтобы добавлять ТаймЛайн</p>*/}
+      {/*}*/}
 
 
 

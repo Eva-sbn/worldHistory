@@ -14,7 +14,6 @@ function App() {
           <Route exact path={"/"}>
             <Header/>
             <HomePage/>
-            <Main/>
           </Route>
           <Route path={"/authorization"}>
             <SignUpPage/>
@@ -25,6 +24,9 @@ function App() {
           <Route path={"/createTimeLine"}>
             <CreateTimeLine/>
           </Route>
+          {/*<Route path={"/"}>*/}
+          {/*  <Main/>*/}
+          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </div>

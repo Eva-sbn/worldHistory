@@ -1,5 +1,6 @@
 const initialState = {
   addTimeLine: false,
+  loading:false,
   loadTimeline: [],
   images: null,
   error: null
@@ -33,6 +34,13 @@ export default function timeLineReducer (state = initialState, action) {
         ...state,
         addTimeLine: true
       }
+    case "timeline/fetch/pending":
+      return {...state,loading: true};
+    case "timeline/fetch/fulfilled":
+      return {...state,loading: false,loadTimeline: action.payload};
+    case "timeline/fetch/rejected":
+      return {...state,loading: false,error: action.error};
+
     default:
       return state;
   }
@@ -40,7 +48,6 @@ export default function timeLineReducer (state = initialState, action) {
 
 
 //thunk
-
 
 export const addImage = (e) => {
   return async (dispatch) => {
@@ -86,8 +93,6 @@ export const reqServer = (name, text) => {
   }
 }
 
-
-
 export const loadingTimeline = () => {
   return async dispatch => {
     const res = await fetch("http://localhost:4000/timeLine")
@@ -96,3 +101,18 @@ export const loadingTimeline = () => {
     dispatch({type: "load/timeline/pending", payload: { json }})
   }
 }
+
+export const getTimeline= () => {
+  return async (dispatch) => {
+    dispatch({ type: "timeline/fetch/pending" });
+
+    try {
+      const res = await fetch("http://localhost:4000/timeLine");
+      const json = await res.json();
+
+      dispatch({ type: "timeline/fetch/fulfilled", payload: json });
+    } catch (e) {
+      dispatch({ type: "timeline/fetch/rejected", error: e.toString() });
+    }
+  };
+};

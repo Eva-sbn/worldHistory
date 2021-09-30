@@ -24,9 +24,6 @@ function App() {
           <Route path={"/createTimeLine"}>
             <CreateTimeLine/>
           </Route>
-          {/*<Route path={"/"}>*/}
-          {/*  <Main/>*/}
-          {/*</Route>*/}
         </Switch>
       </BrowserRouter>
     </div>

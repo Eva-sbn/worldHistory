@@ -49,9 +49,9 @@ export default function HomePage() {
 
         </Grid>
         <Timeline position="alternate">
-          {/*{data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :*/}
-          {/*    <p>Войдите в систему чтобы добавлять ТаймЛайн</p>*/}
-          {/*}*/}
+          {data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :
+              <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
+          }
           {loading ? (
             <h1>Идет загрузка...</h1>
           ) : (
@@ -64,7 +64,7 @@ export default function HomePage() {
                     variant="body2"
                     color="success"
                   >
-                    {item.timeId}  здесь будет выводиться дата
+                    {item.timeId}
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineConnector />

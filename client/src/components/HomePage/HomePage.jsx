@@ -44,7 +44,7 @@ export default function HomePage() {
 
   return (
     <>
-      <Grid container className={classes.main}>
+      <Grid className={classes.main}>
         <Grid container className={classes.img}>
 
         </Grid>

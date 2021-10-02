@@ -3,12 +3,13 @@ const TimeLine = require("../models/TimeLine.model")
 module.exports.timeLineController = {
   createTimeLine: async (req, res) => {
     try {
-      const { title, img, description, timeId } = req.body
+      const { title, img, description, timeId, data } = req.body
       await TimeLine.create({
         title,
         img,
         description,
-        timeId
+        timeId,
+        data
       })
       res.status(200).json({success: 'таймлайн успешно добавлен'})
     }catch (err){

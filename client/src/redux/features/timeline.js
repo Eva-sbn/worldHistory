@@ -89,7 +89,7 @@ export const addImage = (e) => {
 
 
 
-export const reqServer = (name, text) => {
+export const reqServer = (name, text, data) => {
   return async (dispatch, getState) => {
     const state = getState()
     const res = await fetch("http://localhost:4000/timeLine", {
@@ -97,7 +97,8 @@ export const reqServer = (name, text) => {
       body: JSON.stringify({
         title: name,
         description: text,
-        img: state.timeline.images
+        img: state.timeline.images,
+        data: data
       }),
       headers: {
         "Content-type": "application/json",
@@ -136,4 +137,7 @@ export const removeTimeLine = (id) => {
       dispatch ({type: "timeLine/delete/fulfilled", payload: { id }})
     }
   }
+}
+
+export class getTimeline {
 }

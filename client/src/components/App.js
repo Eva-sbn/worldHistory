@@ -3,7 +3,9 @@ import SignUpPage from './pages/SignUpPage'
 import SignInPage from './pages/SignInPage'
 import CreateTimeLine from './pages/CreateTimeLine';
 import HomePage from './HomePage/HomePage';
+import Main from './main/Main';
 import Header from './Header/Header';
+import EventPage from "./pages/EventPage";
 
 function App() {
   return (
@@ -12,7 +14,8 @@ function App() {
         <Switch>
           <Route exact path={"/"}>
             <Header/>
-            <HomePage/>
+            {/*<HomePage/>*/}
+            <Main/>
           </Route>
           <Route path={"/authorization"}>
             <SignUpPage/>
@@ -22,6 +25,9 @@ function App() {
           </Route>
           <Route path={"/createTimeLine"}>
             <CreateTimeLine/>
+          </Route>
+          <Route path={"/timeline/:id"}>
+            <EventPage/>
           </Route>
         </Switch>
       </BrowserRouter>

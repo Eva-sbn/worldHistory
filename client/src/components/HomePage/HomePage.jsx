@@ -6,25 +6,25 @@ import TimelineConnector from '@mui/lab/TimelineConnector';
 import TimelineContent from '@mui/lab/TimelineContent';
 import TimelineOppositeContent from '@mui/lab/TimelineOppositeContent';
 import TimelineDot from '@mui/lab/TimelineDot';
-import FastfoodIcon from '@mui/icons-material/Fastfood';
 import Typography from '@mui/material/Typography';
 import { Grid, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
-import timeline, { getTimeline } from "../../redux/features/timeline";
-import { useEffect } from "react";
-import {Link} from "react-router-dom";
-
 
 const useStyles = makeStyles((theme) => ({
   img: {
     width: '100%',
     height: "500px",
-    backgroundImage: `url(${"https://st2.depositphotos.com/1446528/6350/i/600/depositphotos_63506505-stock-photo-flag-of-chechnya-with-rain.jpg"})`,
+    backgroundImage: `url(${"https://doseng.org/uploads/posts/2015-01/1421209745_0_e8bca_4522740a_orig.jpg"})`,
     backgroundRepeat: "no-repeat",
     backgroundSize: "100%"
   },
   main: {
-    background: "transparent"
+    background: "#90EE90"
+  },
+  avatar: {
+    borderRadius: "50%",
+    width:90,
+    height:80,
   }
 }))
 
@@ -37,10 +37,6 @@ export default function HomePage() {
 
   const data = useSelector(state => state.users.data)
 
-  useEffect(() => {
-    dispatch(getTimeline());
-  }, [dispatch]);
-
 
   return (
     <>
@@ -49,11 +45,8 @@ export default function HomePage() {
 
         </Grid>
         <Timeline position="alternate">
-          {data ? <Link className={"timeline__button"} to={"/createTimeLine"}>Создать ТаймЛайн?</Link> :
-              <p>Войдите в систему чтобы добавлять ТаймЛайн</p>
-          }
           {loading ? (
-            <h1>Идет загрузка...</h1>
+            <h3>Идет загрузка...</h3>
           ) : (
             loadTimeline.map((item) => (
               <>
@@ -68,8 +61,8 @@ export default function HomePage() {
                   </TimelineOppositeContent>
                   <TimelineSeparator>
                     <TimelineConnector />
-                    <TimelineDot>
-                      <FastfoodIcon />
+                    <TimelineDot >
+                      <img src={`http://localhost:4000/${item.img}`} className={classes.avatar} />
                     </TimelineDot>
                     <TimelineConnector />
                   </TimelineSeparator>

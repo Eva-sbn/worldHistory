@@ -8,7 +8,8 @@ const TimelinesSchema = new mongoose.Schema ({
     type: mongoose.Schema.Types.ObjectId,
     ref: "user",
     required: false
-  }
+  },
+  data: String
 })
 
 const Timelines = mongoose.model("Timelines", TimelinesSchema)

@@ -6,7 +6,7 @@ module.exports.eventController = {
       const events = await Event.find({})
       res.status(200).json(events)
     } catch (e) {
-      res.status(400).json({ error: e });
+      res.status(400).json({ error: "Ошибка при запросе..." });
     }
   },
 
@@ -22,6 +22,15 @@ module.exports.eventController = {
       res.status(200).json(event)
     } catch (e) {
       res.status(400).json({ error: e });
+    }
+  },
+
+  getEventsById: async (req, res) => {
+    try {
+      const events = await Event.find({timelineId: req.params.id})
+      res.status(200).json(events)
+    } catch (e) {
+      res.status(400).json({ error: "Ошибка при запросе..." });
     }
   },
 

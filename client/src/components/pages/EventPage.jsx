@@ -9,6 +9,10 @@ import TimelineDot from '@mui/lab/TimelineDot';
 import Typography from '@mui/material/Typography';
 import { Grid, makeStyles } from "@material-ui/core";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect, useState } from 'react'
+import Modal from '../modal/Modal'
+import { loadEvents } from '../../redux/features/event'
+import { useParams } from "react-router-dom"
 
 
 
@@ -31,13 +35,15 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 function EventPage() {
+    const { id } = useParams()
+    const event = useSelector(state => state.event.event)
+    const [modalActive, setModalActive] = useState(true)
     const classes = useStyles();
     const dispatch = useDispatch();
 
-    const { loadTimeline, loading } = useSelector((store) => store.timeline);
-
-    const data = useSelector(state => state.users.data)
-
+    useEffect(() => {
+        dispatch(loadEvents(id))
+    }, [])
     return (
         <>
             <Grid className={classes.main}>
@@ -45,39 +51,42 @@ function EventPage() {
 
                 </Grid>
                 <Timeline position="alternate">
-                    {loading ? (
-                        <h3>Идет загрузка...</h3>
-                    ) : (
-                        loadTimeline.map((item) => (
-                            <>
-                                <TimelineItem>
-                                    <TimelineOppositeContent
-                                        sx={{ m: 'auto 0' }}
-                                        align="right"
-                                        variant="body2"
-                                        color="success"
-                                    >
-                                        {item.timeId}
-                                    </TimelineOppositeContent>
-                                    <TimelineSeparator>
-                                        <TimelineConnector />
-                                        <TimelineDot >
-                                            <img src={`http://localhost:4000/${item.img}`} className={classes.avatar} />
-                                        </TimelineDot>
-                                        <TimelineConnector />
-                                    </TimelineSeparator>
-                                    <TimelineContent sx={{ py: '12px', px: 2 }}>
-                                        <Typography variant="h6" component="span">
-                                            {item.title}
-                                        </Typography>
-                                        <Typography>
-                                            {item.description}
-                                        </Typography>
-                                    </TimelineContent>
-                                </TimelineItem>
-                            </>
-                        ))
-                    )}
+                    {event.map((item) => {
+                        return (
+                          <>
+                              <TimelineItem>
+                                  <TimelineOppositeContent
+                                    sx={{ m: 'auto 0' }}
+                                    align="right"
+                                    variant="body2"
+                                    color="success"
+                                  >
+                                      timeId
+                                  </TimelineOppositeContent>
+                                  <TimelineSeparator>
+                                      <TimelineConnector />
+                                      <TimelineDot >
+                                          <img
+                                            src={`http://localhost:4000/${item.image}`}
+                                            className={classes.avatar}
+                                            onClick={() => setModalActive(true)}
+                                          />
+                                      </TimelineDot>
+                                      <TimelineConnector />
+                                  </TimelineSeparator>
+                                  <TimelineContent sx={{ py: '12px', px: 2 }}>
+                                      <Typography variant="h6" component="span">
+                                          {item.title}
+                                      </Typography>
+                                      <Typography>
+                                          232434
+                                      </Typography>
+                                  </TimelineContent>
+                              </TimelineItem>
+                              <Modal timeline={item.timelineId} active={modalActive} setActive={setModalActive}/>
+                          </>
+                        )
+                    })}
                 </Timeline>
             </Grid>
         </>

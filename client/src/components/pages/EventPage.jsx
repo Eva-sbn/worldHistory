@@ -12,7 +12,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from 'react'
 import Modal from '../modal/Modal'
 import { loadEvents } from '../../redux/features/event'
-import { useParams } from "react-router-dom"
+import { Link, useParams } from 'react-router-dom'
 
 
 
@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
 function EventPage() {
     const { id } = useParams()
     const event = useSelector(state => state.event.event)
-    const [modalActive, setModalActive] = useState(true)
+    const [modalActive, setModalActive] = useState(false)
     const classes = useStyles();
     const dispatch = useDispatch();
 
@@ -50,6 +50,7 @@ function EventPage() {
                 <Grid container className={classes.img}>
 
                 </Grid>
+                <Link to={"/createEvent"}>Создать Событие</Link>
                 <Timeline position="alternate">
                     {event.map((item) => {
                         return (
@@ -67,7 +68,7 @@ function EventPage() {
                                       <TimelineConnector />
                                       <TimelineDot >
                                           <img
-                                            src={`http://localhost:4000/${item.image}`}
+                                            src={item.image}
                                             className={classes.avatar}
                                             onClick={() => setModalActive(true)}
                                           />

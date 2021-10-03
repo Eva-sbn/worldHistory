@@ -5,6 +5,7 @@ import CreateTimeLine from './pages/CreateTimeLine';
 import Main from './main/Main';
 import Header from './Header/Header';
 import EventPage from "./pages/EventPage";
+import CreateEvent from './pages/CreateEvent'
 
 function App() {
   return (
@@ -26,6 +27,9 @@ function App() {
           </Route>
           <Route path={"/timeline/:id"}>
             <EventPage/>
+          </Route>
+          <Route path={"/createEvent"}>
+            <CreateEvent/>
           </Route>
         </Switch>
       </BrowserRouter>
